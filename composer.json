@@ -1,0 +1,21 @@
+{
+    "name": "sendcode/deploy-php",
+    "description": "Deploy PHP",
+    "type": "library",
+    "require": {
+        "symfony/process": "^7.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SendCode\\DeployPHP\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Quynh Nguyen",
+            "email": "seriquynh@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
