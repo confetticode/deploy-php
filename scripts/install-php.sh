@@ -6,6 +6,8 @@ export NEEDRESTART_MODE=a
 export SC_SUDO_USER="sendcode"
 export SC_PHP_VERSION="8.3"
 
+###ENVIRONMENT_VARIABLES###
+
 add-apt-repository -y ppa:ondrej/php
 
 apt-get update
@@ -33,5 +35,5 @@ sed -i "s/www-data/${SC_SUDO_USER}/g" "/etc/php/${SC_PHP_VERSION}/fpm/pool.d/www
 systemctl restart php${SC_PHP_VERSION}-fpm
 
 mkdir -p /home/${SC_SUDO_USER}/.logs
-touch /home/${SC_SUDO_USER}/.logs/install-php-finished
+touch /home/${SC_SUDO_USER}/.logs/php-setup-finished
 chown -R ${SC_SUDO_USER}:${SC_SUDO_USER} /home/${SC_SUDO_USER}/.logs
