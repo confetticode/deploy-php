@@ -34,14 +34,14 @@ touch /etc/ssh/sshd_config.d/50-cloud-init.conf
 
 chmod 600 /etc/ssh/sshd_config.d/50-cloud-init.conf
 
-export DP_SSHD_CONFIG="Port ${SC_SSH_PORT}
+export SC_SSHD_CONFIG="Port ${SC_SSH_PORT}
 PermitRootLogin no
 PasswordAuthentication no
 PermitEmptyPasswords no
 PubkeyAuthentication yes
 
 # AllowGroups sendcode ssh"
-if ! echo "${DP_SSHD_CONFIG}" | tee /etc/ssh/sshd_config.d/50-cloud-init.conf; then
+if ! echo "${SC_SSHD_CONFIG}" | tee /etc/ssh/sshd_config.d/50-cloud-init.conf; then
     echo "Can't configure SSH!" && exit 1
 fi
 
@@ -57,8 +57,8 @@ sudo apt-get update
 
 sudo apt-get install -y fail2ban
 
-mkdir /home/${SC_SUDO_USER}/.logs
+systemctl start fail2ban
+
+mkdir -p /home/${SC_SUDO_USER}/.logs
 touch /home/${SC_SUDO_USER}/.logs/security-setup-finished
 chown -R ${SC_SUDO_USER}:${SC_SUDO_USER} /home/${SC_SUDO_USER}/.logs
-
-systemctl start fail2ban
