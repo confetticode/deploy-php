@@ -5,7 +5,9 @@ export NEEDRESTART_MODE=a
 
 #export SC_SITE_DOMAIN="demo.test"
 #export SC_SITE_WEBROOT="/home/vito/demo.test/public"
-#export SC_SITE_PHP="8.3"
+export SC_SITE_PHP="8.3"
+
+###ENVIRONMENT_VARIABLES###
 
 if [[ -z "${SC_SITE_DOMAIN}" ]]; then
   echo "Please enter the site domain:"

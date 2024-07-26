@@ -7,6 +7,8 @@ export SC_SUDO_USER="sendcode"
 export SC_USER="vito"
 export SC_PASS="secret"
 
+###ENVIRONMENT_VARIABLES###
+
 # Eg: Create a new user called "vito" with "sendcode" as the default group.
 if id "${SC_USER}" >/dev/null 2>&1; then
     echo "The user \"${SC_USER}\" already exists"
