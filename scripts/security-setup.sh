@@ -32,7 +32,6 @@ echo "${SC_SUDO_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${SC_SUDO_USER}
 
 mkdir -p /home/${SC_SUDO_USER}/.ssh
 
-# TODO: If the key already added, we won't add again.
 file=/home/${SC_SUDO_USER}/.ssh/authorized_keys
 search_string="${SC_SSH_PUB_KEY}"
 if grep -q "$search_string" "$file" 2>/dev/null ; then

@@ -22,6 +22,11 @@ if [[ -z "${SC_SITE_PHP}" ]]; then
   read SC_SITE_PHP
 fi
 
+if [ ! -d "${SC_SITE_WEBROOT}" ]; then
+  echo "[${SC_SITE_WEBROOT}] does NOT exist or is NOT a directory."
+  exit 1
+fi
+
 mkdir -p "/var/log/nginx/${SC_SITE_DOMAIN}"
 
 export SC_SITE_CONFIG="server {

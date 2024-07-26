@@ -16,10 +16,7 @@ apt-get install -y nginx
 # TODO: Should we force to re-configure?
 mv /etc/nginx /etc/nginx-previous-"$(date -u +%s)"
 
-git clone https://github.com/h5bp/server-configs-nginx.git /etc/nginx
-
-cp /etc/nginx-previous/snippets/fastcgi-php.conf /etc/nginx/
-cp /etc/nginx-previous/fastcgi.conf /etc/nginx/
+git clone https://github.com/seriquynh/server-configs-nginx.git /etc/nginx
 
 sed -i "s/www-data/${SC_SUDO_USER}/g" /etc/nginx/nginx.conf;
 
