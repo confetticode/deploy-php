@@ -4,7 +4,7 @@ export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 
 #export SC_SITE_DOMAIN="demo.test"
-#export SC_SITE_WEBROOT="/home/vito/demo.test/public"
+#export SC_SITE_WEBROOT="/home/forge/demo.test/public"
 export SC_SITE_PHP="8.3"
 
 ###ENVIRONMENT_VARIABLES###
@@ -15,7 +15,7 @@ if [[ -z "${SC_SITE_DOMAIN}" ]]; then
 fi
 
 if [[ -z "${SC_SITE_WEBROOT}" ]]; then
-  echo "Please enter the site webroot (Eg: /home/vito/${SC_SITE_DOMAIN}/public):"
+  echo "Please enter the site webroot (Eg: /home/forge/${SC_SITE_DOMAIN}/public):"
   read SC_SITE_WEBROOT
 fi
 

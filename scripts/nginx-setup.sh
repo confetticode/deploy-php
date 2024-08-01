@@ -3,7 +3,7 @@
 export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 
-export SC_SUDO_USER="sendcode"
+export SC_SUDO_USER="forge"
 
 ###ENVIRONMENT_VARIABLES###
 
@@ -16,7 +16,7 @@ apt-get install -y nginx
 # TODO: Should we force to re-configure?
 mv /etc/nginx /etc/nginx-previous-"$(date -u +%s)"
 
-git clone https://github.com/seriquynh/server-configs-nginx.git /etc/nginx
+git clone https://github.com/sendcode-project/server-configs-nginx.git /etc/nginx
 
 sed -i "s/www-data/${SC_SUDO_USER}/g" /etc/nginx/nginx.conf;
 

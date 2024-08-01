@@ -3,7 +3,7 @@
 export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 
-export SC_SUDO_USER="sendcode"
+export SC_SUDO_USER="forge"
 export SC_PHP_VERSION="8.3"
 
 ###ENVIRONMENT_VARIABLES###

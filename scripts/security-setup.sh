@@ -4,16 +4,22 @@ export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 
 # The root alternative user that you can run "sudo" commands without password prompt.
-export SC_SUDO_USER="sendcode"
+export SC_SUDO_USER="forge"
+export SC_SUDO_PASS=""
 
 # The SSH port should be configured.
 export SC_SSH_PORT=22
 
 # The SSH public key you use to access to the server.
-# Eg: from you MacBook Pro, you can run "ssh -i ~/.ssh/your-private-key.pem sendcode@your-server-ip"
-# export SC_SSH_PUB_KEY=""
+# Eg: from you MacBook Pro, you can run "ssh -i ~/.ssh/your-private-key.pem forge@your-server-ip"
+ export SC_SSH_PUB_KEY=""
 
 ###ENVIRONMENT_VARIABLES###
+
+if [[ -z "${SC_SUDO_PASS}" ]]; then
+  echo "Please enter your sudo password:"
+  read -s SC_SUDO_PASS
+fi
 
 if [[ -z "${SC_SSH_PUB_KEY}" ]]; then
   echo "Please enter your SSH public key:"
@@ -25,6 +31,7 @@ if id "${SC_SUDO_USER}" >/dev/null 2>&1; then
     echo "The user \"${SC_SUDO_USER}\" already exists"
 else
     adduser --disabled-password --gecos "The root alternative" ${SC_SUDO_USER}
+    usermod --password "$(echo "$SC_SUDO_PASS" | openssl passwd -1 -stdin)" "$SC_SUDO_USER"
 fi
 
 usermod -aG sudo ${SC_SUDO_USER}
@@ -43,25 +50,25 @@ fi
 chown -R ${SC_SUDO_USER}:${SC_SUDO_USER} /home/${SC_SUDO_USER}/.ssh
 
 ##### Configure SSH (/etc/sshd_config) #####
-rm -rf /etc/ssh/sshd_config.d/*
-
-touch /etc/ssh/sshd_config.d/50-cloud-init.conf
-
-chmod 600 /etc/ssh/sshd_config.d/50-cloud-init.conf
-
-# TODO: we should only allow users in sendcode group to SSH.
-export SC_SSHD_CONFIG="Port ${SC_SSH_PORT}
-PermitRootLogin no
-PasswordAuthentication no
-PermitEmptyPasswords no
-PubkeyAuthentication yes
-
-# AllowGroups sendcode ssh"
-if ! echo "${SC_SSHD_CONFIG}" | tee /etc/ssh/sshd_config.d/50-cloud-init.conf; then
-    echo "Can't configure SSH!" && exit 1
-fi
-
-systemctl restart sshd
+# TODO: Re-check later
+#rm -rf /etc/ssh/sshd_config.d/*
+#
+#touch /etc/ssh/sshd_config.d/50-cloud-init.conf
+#
+#chmod 600 /etc/ssh/sshd_config.d/50-cloud-init.conf
+#
+#export SC_SSHD_CONFIG="Port ${SC_SSH_PORT}
+#PermitRootLogin no
+#PasswordAuthentication no
+#PermitEmptyPasswords no
+#PubkeyAuthentication yes
+#
+#AllowGroups ${SC_SUDO_USER} ssh"
+#if ! echo "${SC_SSHD_CONFIG}" | tee /etc/ssh/sshd_config.d/50-cloud-init.conf; then
+#    echo "Can't configure SSH!" && exit 1
+#fi
+#
+#systemctl restart sshd
 
 ufw allow ${SC_SSH_PORT}
 
