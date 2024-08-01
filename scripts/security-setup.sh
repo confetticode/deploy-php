@@ -31,11 +31,12 @@ if id "${SC_SUDO_USER}" >/dev/null 2>&1; then
     echo "The user \"${SC_SUDO_USER}\" already exists"
 else
     adduser --disabled-password --gecos "The root alternative" ${SC_SUDO_USER}
-    usermod --password "$(echo "$SC_SUDO_PASS" | openssl passwd -1 -stdin)" "$SC_SUDO_USER"
 fi
 
+usermod --password "$(echo "$SC_SUDO_PASS" | openssl passwd -1 -stdin)" "$SC_SUDO_USER"
+
 usermod -aG sudo ${SC_SUDO_USER}
-echo "${SC_SUDO_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${SC_SUDO_USER}
+#echo "${SC_SUDO_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${SC_SUDO_USER}
 
 mkdir -p /home/${SC_SUDO_USER}/.ssh
 

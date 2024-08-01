@@ -7,14 +7,15 @@ Image you've created a fresh Ubuntu server and can SSH into it.
 On that server, run the command below as root.
 
 ```bash
-wget -O security-setup.sh https://raw.githubusercontent.com/sendcode-project/deploy-php/master/scripts/app-setup.sh
+wget -O app-setup.sh https://raw.githubusercontent.com/sendcode-project/deploy-php/master/scripts/app-setup.sh
+
+bash app-setup.sh
 ```
 
 > You will be asked for a password and an SSH public key. After installation, you will not be able to SSH into your server using root or password. You can only access using your SSH private key that associate with the SSH public key you added.
 
-
+- It creates a sudo user called forge.
 - It installs Nginx and PHP 8.3.
-- It creates the "forge" user to run sudo commands.
 
 After finishing, on your computer, use this command to SSH into your server.
 
